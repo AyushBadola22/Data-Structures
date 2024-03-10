@@ -1,0 +1,1 @@
+addEdge(graph2 , 1, 5, 2);  
