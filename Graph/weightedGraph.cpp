@@ -1,11 +1,12 @@
+//******************  Libraries  *****************************
 #include<iostream>
 #include<vector>
 #include<queue>
 #include<tuple>
+#include<algorithm>
 using namespace std; 
 
 
-//******************       Libraries              *****************************
 
 
 //******************* Graph by Vector of tuples  *********************
@@ -64,6 +65,40 @@ void dfs(vector<pair<int , pair<int , int>>> graph, int numberOfVertices){
             dfsutil(graph , visited , source);
         }
     }
+}
+
+                /* 
+                * ##############################################
+                * ######||       Kruskal Algorithm      ######||
+                * ##############################################
+                */
+
+int find (int vertex  , vector<int> parent){
+    if(parent[vertex] == vertex){
+        return vertex; 
+    }
+    return find(parent[vertex], parent); 
+}
+
+void unionOfDisjoint(int source , int destination , vector<int>&parent, int){
+    int srcParent = find(source , parent); 
+    int destParent = find(source , parent); 
+
+    if(srcParent != destParent){
+        parent[destParent] = srcParent; 
+    }
+}
+
+vector<pair<int, pair<int, int>>> kruskalAlgo(vector<pair<int, pair<int, int>>> graph, int  numberOfVertices){
+    vector<int>parent(numberOfVertices); 
+    for(int i =0; i<numberOfVertices; i++){
+        parent[i]=i; 
+    }
+
+    sort(graph.begin(), graph.end()); 
+    int edges = graph.size();
+    vector<pair<int, pair<int, int>>> mst; 
+    
 }
 
 //******************* Main Function  *********************
