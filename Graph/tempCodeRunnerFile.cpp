@@ -1,1 +1,3 @@
-0
+vector<int> primsAlgorithm (vvi edges , int vertices){
+   
+// }
