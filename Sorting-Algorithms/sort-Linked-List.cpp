@@ -43,6 +43,7 @@ void insert (node ** head , int value  ){
         last->next = newnode; 
     }
 }
+///////////////////////////////////////////
 
 void splitNode(node *head, node ** list1, node ** list2){
     node * slow = head, *fast = head->next; 
