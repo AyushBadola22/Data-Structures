@@ -14,17 +14,11 @@ class DisjointSet :
             # The value stored denotes the number of nodes inside its tree. 
             if self.parent[v] < 0 : 
                 return v
-            else : 
-                v = self.parent[v]
+            
+            v = self.parent[v]
 
     # union method to join two edges if the two nodes doesn't form a cycle
     def union (self , u , v ) : 
-        parent_u = self.find(u)
-        parent_v = self.find(v)
-
-        if parent_u == parent_v : 
-            return 
-            
         if self.parent[parent_u] <= self.parent[parent_v] : 
             self.parent[parent_u] += self.parent[parent_v]
             self.parent[parent_v] = parent_u 
@@ -83,10 +77,10 @@ class Graph :
         for src, dest , wgt in self.edges : 
             result += f'\nFrom {src} to {dest} with weight {wgt}'
         return result 
-    
 
-### ############### Driver Code  ####################### ###
 
+
+######################### Driver Code #############################
 graph = Graph(4)
 graph.add_edge(0 , 1 , 4)
 graph.add_edge(0 , 2 , 3)
@@ -98,32 +92,10 @@ graph.add_edge(2, 3 , 6)
 
 print(graph.krushkal_mst())
 
+
 """
-Expected output : 
+Expected : 
 From 1 to 3 with weight 1
 From 0 to 3 with weight 2
 From 0 to 2 with weight 3
-"""
-
-
-graph = Graph(6)
-graph.add_edge(0, 1, 7)
-graph.add_edge(0, 2, 9)
-graph.add_edge(0, 3, 14)
-graph.add_edge(1, 2, 10)
-graph.add_edge(1, 4, 15)
-graph.add_edge(2, 3, 2)
-graph.add_edge(2, 4, 11)
-graph.add_edge(3, 4, 6)
-graph.add_edge(3, 5, 9)
-graph.add_edge(4, 5, 7)
-
-print ("\n\nTestcase two answer : ", graph.krushkal_mst())
-"""
-Testcase two answer :  
-From 2 to 3 with weight 2
-From 3 to 4 with weight 6
-From 0 to 1 with weight 7
-From 4 to 5 with weight 7
-From 0 to 2 with weight 9 
 """
