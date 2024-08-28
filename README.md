@@ -36,9 +36,7 @@
 <br>
 Implementation
 
-- [Kruskal's Algorithm C++](https://github.com/AyushBadola22/Data-Structures/blob/main/krushkal.cpp) 
-- [Kruskal's Algorithm Python](https://github.com/AyushBadola22/Data-Structures/blob/main/krushkal.py) 
-- [Krushal's implementation with classesin python ](https://github.com/AyushBadola22/Data-Structures/blob/main/krushkal_with_classes.py)
+- [Kruskal's Algorithm C++](https://github.com/AyushBadola22/Data-Structures/blob/main/Graph/krushkal.cpp) 
+- [Kruskal's Algorithm Python](https://github.com/AyushBadola22/Data-Structures/blob/main/Graph/krushkal.py) 
+- [Krushal's implementation with classesin python ](https://github.com/AyushBadola22/Data-Structures/blob/main/Graph/krushkal_with_classes.py)  
 ---
-
-`
