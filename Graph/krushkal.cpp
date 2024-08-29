@@ -3,7 +3,7 @@ using namespace std;
 typedef vector<vector<int>> vvi;
 typedef vector<int> vi;
 
-int find(int v, vi parent){
+int find(int v, vi &parent){//pass the parent vector by reference for optimise code
     while(1){
         if(parent[v] < 0) return v; 
         v = parent[v]; 
@@ -21,13 +21,14 @@ void unionOfSets(int u, int v, vi &parent){
     int parent2 = find(v, parent);
 
     if(parent1 == parent2) return ;
+    
 
-    if (parent[parent1] < parent[parent2])
+    if (parent[parent1] > parent[parent2])
     {
-        parent[parent1] += parent[parent2];
-        parent[parent2] = parent1;
+        parent[parent1] += parent[parent2];//we will update the parent of that vertex which have greater abs value
+        parent[parent2] = parent1;//we will update parent of smaller abs value with new parent value
     }
-    else if (parent[parent1] >= parent[parent2])
+    else if (parent[parent2] >= parent[parent1])
     {
         parent[parent2] += parent[parent1];
         parent[parent1] = parent2;
