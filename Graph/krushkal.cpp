@@ -3,16 +3,20 @@ using namespace std;
 typedef vector<vector<int>> vvi;
 typedef vector<int> vi;
 
-int find(int v, vi parent){
-    while(1){
-        if(parent[v] < 0) return v; 
-        v = parent[v]; 
+int find(int v, vi parent)
+{
+    while (1)
+    {
+        if (parent[v] < 0)
+            return v;
+        v = parent[v];
     }
     // if the parent of vertex is negative that means the ultimate parent is itself.
     // else then find its ultimate parent
 }
 
-void unionOfSets(int u, int v, vi &parent){
+void unionOfSets(int u, int v, vi &parent)
+{
 
     // first find the parent for both of them
     // the returned value from the find is the index for that parent so we need to check the value of there
@@ -20,7 +24,8 @@ void unionOfSets(int u, int v, vi &parent){
     int parent1 = find(u, parent);
     int parent2 = find(v, parent);
 
-    if(parent1 == parent2) return ;
+    if (parent1 == parent2)
+        return;
 
     if (parent[parent1] < parent[parent2])
     {
@@ -55,19 +60,17 @@ vvi krushkal(vvi edges, int V)
         auto edge = pq.top();
         int parent1 = find(edge.second.first, parent);
         int parent2 = find(edge.second.second, parent);
-        if (  parent1 != parent2)
+        if (parent1 != parent2)
         {
             unionOfSets(edge.second.first, edge.second.second, parent);
             mst.push_back({edge.second.first, edge.second.second, edge.first});
         }
-        pq.pop(); 
+        pq.pop();
     }
     return mst;
 }
 
-
 //-------------------------------------- Driver Code --------------------------------------------//
-
 
 int main()
 {
@@ -81,15 +84,20 @@ int main()
     //     {2, 0, 4},
     //     {3, 0, 2}};
     vvi edges = {
-        {0, 1, 10},
-        {1, 3, 15},
-        {2, 3, 4},
-        {2, 0, 6},
-        {0, 3, 5}};
+        {0, 1, 4},
+        {0, 2, 8},
+        {1, 2, 11},
+        {1, 3, 6},
+        {2, 4, 7},
+        {3, 4, 9},
+        {3, 5, 10},
+        {4, 5, 12},
+        {4, 6, 2},
+        {5, 6, 5}};
 
-    vvi mst = krushkal(edges , 4);
-    for(auto edge : mst){
-        cout<<edge[0]<< " to "<<edge[1]<< " with wgt "<<edge[2]<<endl; 
-    } 
-
+    vvi mst = krushkal(edges, 7);
+    for (auto edge : mst)
+    {
+        cout << edge[0] << " to " << edge[1] << " with wgt " << edge[2] << endl;
+    }
 }

@@ -26,7 +26,7 @@ class DisjointSet :
         if parent_u == parent_v : 
             return
          
-        if self.parent[parent_u] <= self.parent[parent_v] : 
+        if self.parent[parent_u] < self.parent[parent_v] : 
             self.parent[parent_u] += self.parent[parent_v]
             self.parent[parent_v] = parent_u 
         else : 
