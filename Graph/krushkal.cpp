@@ -1,91 +1,87 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 typedef vector<vector<int>> vvi;
 typedef vector<int> vi;
 
-int find(int v, vi &parent){//pass the parent vector by reference for optimise code
-    while(1){
-        if(parent[v] < 0) return v; 
-        v = parent[v]; 
-    }
-    // if the parent of vertex is negative that means the ultimate parent is itself.
-    // else then find its ultimate parent
+// Function to find the root of the set containing vertex `v` with path compression
+int find(int v, vi &parent) {
+    if (parent[v] < 0)
+        return v; // If parent[v] is negative, `v` is the root
+    return parent[v] = find(parent[v], parent); // Path compression optimization
 }
 
-void unionOfSets(int u, int v, vi &parent){
-
-    // first find the parent for both of them
-    // the returned value from the find is the index for that parent so we need to check the value of there
-
+// Function to union two sets containing vertices `u` and `v`
+void unionOfSets(int u, int v, vi &parent) {
     int parent1 = find(u, parent);
     int parent2 = find(v, parent);
 
-    if(parent1 == parent2) return ;
-    
+    if (parent1 == parent2)
+        return; // If they are already in the same set, no need to union
 
-    if (parent[parent1] > parent[parent2])
-    {
-        parent[parent1] += parent[parent2];//we will update the parent of that vertex which have greater abs value
-        parent[parent2] = parent1;//we will update parent of smaller abs value with new parent value
-    }
-    else if (parent[parent2] >= parent[parent1])
-    {
-        parent[parent2] += parent[parent1];
-        parent[parent1] = parent2;
+    // Union by size: Attach the smaller tree under the root of the larger tree
+    if (parent[parent1] < parent[parent2]) {
+        parent[parent1] += parent[parent2]; // Update the size of the new root
+        parent[parent2] = parent1; // Attach parent2 under parent1
+    } else {
+        parent[parent2] += parent[parent1]; // Update the size of the new root
+        parent[parent1] = parent2; // Attach parent1 under parent2
     }
 }
 
-vvi krushkal(vvi edges, int V)
-{
-    vi parent(V, -1); // first initialize all of them as -1 indicates that they are there own parent.
+// Function to implement Kruskal's algorithm to find the Minimum Spanning Tree (MST)
+vvi kruskal(vvi &edges, int V) {
+    vi parent(V, -1); // Initialize each vertex as its own parent with a size of -1
 
+    // Priority queue to sort edges by their weights in ascending order
     priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
-    vvi mst;
+    vvi mst; // To store the resulting MST
 
-    for (auto edge : edges)
-    {
+    // Push all edges into the priority queue
+    for (auto &edge : edges) {
         int wgt = edge[2];
         int src = edge[0];
         int dest = edge[1];
-
         pq.push({wgt, {src, dest}});
     }
 
-    while (!pq.empty())
-    {
+    // Process edges in order of their weights
+    while (!pq.empty()) {
         auto edge = pq.top();
-        int parent1 = find(edge.second.first, parent);
-        int parent2 = find(edge.second.second, parent);
-        if (  parent1 != parent2)
-        {
-            cout<<"cur edge : "<<edge.second.first<<" , "<<edge.second.second<<endl; 
-            unionOfSets(edge.second.first, edge.second.second, parent);
-            mst.push_back({edge.second.first, edge.second.second, edge.first});
+        pq.pop();
+
+        int u = edge.second.first;
+        int v = edge.second.second;
+        int w = edge.first;
+
+        // Check if the selected edge forms a cycle
+        if (find(u, parent) != find(v, parent)) {
+            unionOfSets(u, v, parent); // Union the sets containing u and v
+            mst.push_back({u, v, w}); // Add the edge to the MST
         }
-        pq.pop(); 
     }
     return mst;
 }
 
-
 //-------------------------------------- Driver Code --------------------------------------------//
 
-
-int main()
-{
-
+int main() {
     vvi edges = {
-        {0, 1, 3},
-        {0, 2, 4},
-        {0, 3, 2},
-        {1, 0, 3},
-        {1, 3, 7},
-        {2, 0, 4},
-        {3, 0, 2}};
+        {0, 1, 4},
+        {0, 2, 8},
+        {1, 2, 11},
+        {1, 3, 6},
+        {2, 4, 7},
+        {3, 4, 9},
+        {3, 5, 10},
+        {4, 5, 12},
+        {4, 6, 2},
+        {5, 6, 5}
+    };
 
-    vvi mst = krushkal(edges , 4);
-    for(auto edge : mst){
-        cout<<edge[0]<< " to "<<edge[1]<< " with wgt "<<edge[2]<<endl; 
-    } 
-
+    vvi mst = kruskal(edges, 7);
+    for (auto &edge : mst) {
+        cout << edge[0] << " to " << edge[1] << " with weight " << edge[2] << endl;
+    }
+    return 0;
 }
