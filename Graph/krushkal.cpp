@@ -57,7 +57,6 @@ vvi krushkal(vvi edges, int V)
         int parent2 = find(edge.second.second, parent);
         if (  parent1 != parent2)
         {
-            cout<<"cur edge : "<<edge.second.first<<" , "<<edge.second.second<<endl; 
             unionOfSets(edge.second.first, edge.second.second, parent);
             mst.push_back({edge.second.first, edge.second.second, edge.first});
         }
@@ -73,14 +72,20 @@ vvi krushkal(vvi edges, int V)
 int main()
 {
 
+    // vvi edges = {
+    //     {0, 1, 3},
+    //     {0, 2, 4},
+    //     {0, 3, 2},
+    //     {1, 0, 3},
+    //     {1, 3, 7},
+    //     {2, 0, 4},
+    //     {3, 0, 2}};
     vvi edges = {
-        {0, 1, 3},
-        {0, 2, 4},
-        {0, 3, 2},
-        {1, 0, 3},
-        {1, 3, 7},
-        {2, 0, 4},
-        {3, 0, 2}};
+        {0, 1, 10},
+        {1, 3, 15},
+        {2, 3, 4},
+        {2, 0, 6},
+        {0, 3, 5}};
 
     vvi mst = krushkal(edges , 4);
     for(auto edge : mst){

@@ -18,7 +18,14 @@ class DisjointSet :
             v = self.parent[v]
 
     # union method to join two edges if the two nodes doesn't form a cycle
-    def union (self , u , v ) : 
+    def union (self , u , v ) :
+        parent_u = self.find(u)
+        parent_v= self.find(v)
+
+
+        if parent_u == parent_v : 
+            return
+         
         if self.parent[parent_u] <= self.parent[parent_v] : 
             self.parent[parent_u] += self.parent[parent_v]
             self.parent[parent_v] = parent_u 
@@ -82,20 +89,11 @@ class Graph :
 
 ######################### Driver Code #############################
 graph = Graph(4)
-graph.add_edge(0 , 1 , 4)
-graph.add_edge(0 , 2 , 3)
-graph.add_edge(0 , 3 , 2)
-graph.add_edge(1 , 2 , 5)
-graph.add_edge(1 , 3 , 1)
-graph.add_edge(2, 3 , 6)
+graph.add_edge(0, 1, 10); 
+graph.add_edge(1, 3, 15); 
+graph.add_edge(2, 3, 4); 
+graph.add_edge(2, 0, 6); 
+graph.add_edge(0, 3, 5); 
 
 
 print(graph.krushkal_mst())
-
-
-"""
-Expected : 
-From 1 to 3 with weight 1
-From 0 to 3 with weight 2
-From 0 to 2 with weight 3
-"""
