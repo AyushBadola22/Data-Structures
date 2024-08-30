@@ -21,22 +21,16 @@ void unionOfSets(int u, int v, vi &parent)
     // first find the parent for both of them
     // the returned value from the find is the index for that parent so we need to check the value of there
 
-    int parent1 = find(u, parent);
-    int parent2 = find(v, parent);
-
-    if (parent1 == parent2)
-        return;
-
-    if (parent[parent1] < parent[parent2])
-    {
-        parent[parent1] += parent[parent2];
-        parent[parent2] = parent1;
-    }
-    else if (parent[parent1] >= parent[parent2])
-    {
-        parent[parent2] += parent[parent1];
-        parent[parent1] = parent2;
-    }
+    int p1 = find(u,parent);
+        int p2 = find(v,parent);
+        if (p1 == p2) return;
+        if (abs(parent[p1]) > abs(parent[p2])) {
+            parent[p1] += parent[p2];
+            parent[p2] = p1;
+        } else {
+            parent[p2] += parent[p1];
+            parent[p1] = p2;
+        }
 }
 
 vvi krushkal(vvi edges, int V)
@@ -96,8 +90,11 @@ int main()
         {5, 6, 5}};
 
     vvi mst = krushkal(edges, 7);
+    int mstWt=0;
     for (auto edge : mst)
     {
         cout << edge[0] << " to " << edge[1] << " with wgt " << edge[2] << endl;
+        mstWt+=edge[2];
     }
+    cout<<"Toatal Weight to MST is "<<mstWt<<endl;
 }
