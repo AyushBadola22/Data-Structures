@@ -8,7 +8,7 @@ If the email already exists and its not the same index then we will union the tw
 In last what we will create a structure and emails pointing to same index are merged .
 
 For any query regarding the code can ask in the discussion. If you are shy just refer to the striver's video of Account merge , you will get the idea of approach.
-The implementation can greatly differ so please don't just mug up the solution , take a notebook and learn how it flows. 
+The implementation can greatly differ so please don't just mug up the solution , take a notebook and learn how it flows. `
 */
 
 class Solution {
