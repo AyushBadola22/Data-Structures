@@ -1,6 +1,6 @@
 """
     Question is that given points in a graph , connect such that cost is less
-    cost is defined by | xi - xj | + | yi - yj | 
+    cost is defined by | xi - xj | + | yi - yj |    
 """
 
 import heapq
