@@ -1,5 +1,15 @@
 /*
-    Sorry there is no explaination right now, but please contact me i will provide it 
+    Question is surrounded regions leetcode 130 
+    Given a matrix with value filled with 'X' or 'O' (O for orange , not zero )
+    Task is to flip all the O's to X's if can be surrounded by 4 sides.
+
+    Inutition is that boundary elements will never be surrounded . 
+    Neither nodes connected to boundary can be surrounded. 
+    So we will use DSU to make a component that is directly or indirectly connected to the boundary element. 
+    While others who are not will be flipped. 
+
+    we are using one extra node with highest rank as dummy node . 
+    Its sole purpose is to denote that the node is boundary node and anyone connected to it will never be conquered. 
 */
 
 typedef vector<int> vi; 
